@@ -1,4 +1,3 @@
-//var nodeArgs = process.argv;
 var action = process.argv[2];
 var input = process.argv[3];
 
@@ -12,7 +11,6 @@ var request = require("request");
 
 var fs = require("fs");
 
-//var movieName = "";
 var songName = "";
 
 
@@ -27,7 +25,6 @@ var client = new Twitter(tweetKeys);
 
 var params = {greetingsfromKG: 'nodejs'};
 //console.log(params);
-//console.log("tweet tweet");
 
 client.get('statuses/user_timeline', params, function(error, tweets, response) {
   
@@ -36,6 +33,7 @@ client.get('statuses/user_timeline', params, function(error, tweets, response) {
   	for (var i = 0; i < tweets.length; i++) {
   	console.log(tweets[i].created_at);
   	console.log(tweets[i].text);
+  	console.log("===========================")
   	}
 });
 }
@@ -48,8 +46,6 @@ var spotKeys = keys.spotifyKeys;
  
 var spotify = new Spotify(spotKeys);
 //console.log(spotify);
-
-//var songName = "";
 
 if (action === 'spotify-this-song' && process.argv.length === 3) {
 
@@ -77,6 +73,7 @@ spotify.search({ type: 'track', query: songName, limit: 1 }, function(err, data)
 	console.log(data.tracks.items[0].name);
 	console.log(data.tracks.items[0].preview_url);
 	console.log(data.tracks.items[0].album.name); 
+	console.log("============================")
   }
 });
 }
@@ -107,13 +104,10 @@ function movieThis() {
 	
 	var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=40e9cece";
 
-	//console.log(queryUrl);
-
 	request(queryUrl, function(error, response, body) {
 
   	if (!error && response.statusCode === 200) {
 
-    //console.log(JSON.parse(body));
     console.log("Title: " + JSON.parse(body).Title);
     console.log("Year: " + JSON.parse(body).Year);
     console.log("IMBD Rating: " + JSON.parse(body).imdbRating);
@@ -122,6 +116,7 @@ function movieThis() {
     console.log("Language: " + JSON.parse(body).Language);
     console.log("Plot: " + JSON.parse(body).Plot);
     console.log("Actors: " + JSON.parse(body).Actors);
+    console.log("================================")
 
   }
 
@@ -139,8 +134,6 @@ function doWhatItSays() {
 	     //console.log(data)
 	     }
 	     var dataArray = data.split(",");
-	     // action = dataArray[0];
-	     // console.log(action);
 	     input = dataArray[1];
 	     songName = input;
 	     console.log(songName);
